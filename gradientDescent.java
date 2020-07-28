@@ -4,7 +4,6 @@
 import java.util.Arrays;
 
 public class gradientDescent {
-
     public double[][] mainList;
     public double alpha;
     public int numOfParams;
