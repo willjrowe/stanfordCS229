@@ -11,7 +11,7 @@ def main(train_path, valid_path, save_path):
         save_path: Path to save predicted probabilities using np.savetxt().
     """
     x_train, y_train = util.load_dataset(train_path, add_intercept=True)
-
+    
     # *** START CODE HERE ***
     # Train a logistic regression classifier
     # Plot decision boundary on top of validation set set
