@@ -25,7 +25,6 @@ class GaussDiscrimAnalysis:
         self.mainList = inputList
         self.numOfFeatures = len(inputList[0]) - 1
         self.numOfExamples = len(inputList)
-        self.yLoc = 1
         self.convToNPArray()
         self.calcSigma()
         print("NumofFeatures: ", end="") 
