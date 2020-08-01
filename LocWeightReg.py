@@ -8,13 +8,14 @@ class LocWeightReg:
     #input list is of format [[x1,x2,y],...]
     def __init__(self,inputList):
         self.mainList = inputList
+        self.alpha=0.1
         self.numOfFeatures = len(inputList[0])
         self.numOfExamples = len(inputList)
         self.thetas = np.zeros(self.numOfFeatures)
         self.convToNPArray()
-        inputTest = np.array([6,6,6])
+        inputTest = np.array([6,6])
         toCompare = np.array(self.mainList[1])
-        self.trainForInput([1,1,2])
+        self.trainForInput(inputTest,1)
 
     def convToNPArray(self):
         zeroFeature = np.zeros(self.numOfExamples)
@@ -37,12 +38,17 @@ class LocWeightReg:
         x = math.exp(x)
         return x
 
-    def trainForInput(self,newVal):
-        currJ = 0
-        for i in range(self.numOfExamples):
-            currWeight = self.weightFunction(newVal,np.array([self.zeroFeature[i],self.oneFeature[i]]))
-            thetaTranspX = np.dot(self.thetas,np.array([self.zeroFeature[i],self.oneFeature[i]]))
-            print(thetaTranspX)
-            diffSquare = math.pow(self.yValues[i] - thetaTranspX,2)
-            diffSquare = currWeight * diffSquare
-            currJ+=diffSquare
+    def trainForInput(self,newVal,numOfIter):
+        for w in range(numOfIter):
+            for j in range(self.numOfFeatures):
+                currJ = 0
+                for i in range(self.numOfExamples):
+                    currWeight = self.weightFunction(newVal,np.array([self.zeroFeature[i],self.oneFeature[i]]))
+                    thetaTranspX = np.dot(self.thetas,np.array([1,self.zeroFeature[i],self.oneFeature[i]]))
+                    diffSquare = math.pow(self.yValues[i] - thetaTranspX,2)
+                    diffSquare = currWeight * diffSquare
+                    currJ+=diffSquare
+                print(currJ)
+                for i in range(len(self.thetas)):
+                    self.thetas[i] = self.thetas[i] - self.alpha*currJ
+            print(self.thetas) 
